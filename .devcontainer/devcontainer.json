@@ -23,7 +23,11 @@
                 "ginfuru.ginfuru-vscode-jekyll-syntax",
                 "mhutchie.git-graph",
                 "eamodio.gitlens",
-                "rebornix.Ruby"
+                "rebornix.Ruby",
+                "huacat.office-theme",
+                "github.vscode-pull-request-github",
+                "github.vscode-github-actions",
+                "github.github-vscode-theme"
             ],
             "settings": {
                 "terminal.integrated.shell.linux": "/bin/bash"
