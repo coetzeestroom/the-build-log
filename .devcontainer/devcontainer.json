@@ -1,38 +1,34 @@
-// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.101.1/containers/ruby-2
 {
-	"name": "Ruby 3",
-	"dockerFile": "Dockerfile",
-	
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bundle install",
-
-	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode"
-
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                  "GitHub.vscode-pull-request-github",
-                "vscjava.vscode-java-pack",
-                "redhat.java",
-                "google.geminicodeassist",
-                "ginfuru.ginfuru-vscode-jekyll-syntax",
-                "mhutchie.git-graph",
-                "eamodio.gitlens",
-                "rebornix.Ruby",
-                "huacat.office-theme",
-                "github.vscode-pull-request-github",
-                "github.vscode-github-actions",
-                "github.github-vscode-theme"
-            ],
-            "settings": {
-                "terminal.integrated.shell.linux": "/bin/bash"
-            }
-        }
+  "name": "Jekyll website",
+  // Use the Dockerfile in this folder to build every time
+  "build": {
+        "dockerfile": "Dockerfile",
+        "args": {}
+    },
+  // If this is prebuilt and stored in an internal registry, use this instead
+  // "image": "registry.company.us/jekyll-website:latest",
+  //
+  // Forward the website port
+  "forwardPorts": [4000],
+  "portsAttributes": {
+    "4000": {
+      "label": "Website"
     }
-
+  },
+  // Add VS Code extensions
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "google.geminicodeassist"
+      ]
+    }
+  },
+  // Use the "nonroot" user, default for Chainguard images
+  "remoteUser": "nonroot",
+  // After it's created, run bundle to install dependencies
+  "postCreateCommand": {
+    "bundle": "bundle install --path vendor/bundle --retry 5 --jobs 20"
+  },
+  // After it's launched and VS Code is attached, run Jekyll to serve the website
+  "postAttachCommand": "bundle exec jekyll serve --host 0.0.0.0"
 }
